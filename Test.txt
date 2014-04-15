@@ -1,4 +1,8 @@
 1
 2
 3
+<<<<<<< HEAD
 5 This is updated in Local machine..
+=======
+4 -Added in Git website directly
+>>>>>>> eb141fc4d3004ebda1e106be0df40c995cc0bd3e
