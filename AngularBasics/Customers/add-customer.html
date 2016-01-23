@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../Scripts/angular.js"></script>
+    <script src="CustomerModule.js"></script>
+</head>
+    <body ng-app="custModule" ng-controller='custController as custCtrl'>
+        <form name="newCustomerForm" ng-submit="custCtrl.addCustomer()" >
+            <h2>Hello guys, I am here..</h2>
+            <table>
+                <tr>
+                    <td>First Name</td>
+                    <td><input type="text" ng-model="custCtrl.customer.firstName" required/>{{ custCtrl.customer.firstName }}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td><input type="text" ng-model="custCtrl.customer.lastName" required/>
+                    {{ custCtrl.customer.lastName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td><input type="date" ng-model="custCtrl.customer.dateOfBirth" required></input>{{  custCtrl.customer.dateOfBirth | date:'dd/MMM/yyyy' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" ng-model="custCtrl.customer.gender" name="gender" value="Male">Male</input> 
+                        <input type="radio" ng-model="custCtrl.customer.gender" name="gender" value="Female">Female</input> <br/>
+                        {{ custCtrl.customer.gender }}
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Add Customer"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
