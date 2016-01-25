@@ -1,4 +1,11 @@
-var app = new angular.module('custModule',[]);
+var app = new angular.module('custModule', []);
+
+app.directive('customerList', function () {
+    return {
+        restrict: 'E',
+        templateUrl:'customer-list.html'
+    };
+});
 
 app.controller('custController', function () {
     var customerCtrl = this;
