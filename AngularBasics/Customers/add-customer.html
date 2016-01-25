@@ -10,6 +10,9 @@
             background-color:white;
             grid-row:auto;
         }
+        .rowHeader{
+            background-color:beige;
+        }
         .rowEven{
             background-color:antiquewhite;
         }
@@ -17,73 +20,76 @@
 </head>
 <body ng-app="custModule" ng-controller='custController as custCtrl'>
     <form name="newCustomerForm" ng-submit="custCtrl.addCustomer()" style="width:50%">
-        <table class="form-horizontal">
-            <tr>
-                <td>First Name</td>
-                <td><input type="text" ng-model="custCtrl.customer.firstName" required />{{ custCtrl.customer.firstName }}</td>
-            </tr>
-            <tr>
-                <td>Last Name</td>
-                <td>
-                    <input type="text" ng-model="custCtrl.customer.lastName" required class="col-lg-10" />
-                    {{ custCtrl.customer.lastName}}
-                </td>
-            </tr>
-            <tr>
-                <td>Date of Birth</td>
-                <td>
-                    <input type="date" ng-model="custCtrl.customer.dateOfBirth" required></input>{{  custCtrl.customer.dateOfBirth | date:'dd/MMM/yyyy' }}
-                </td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td>
-                    <input type="radio" ng-model="custCtrl.customer.gender" name="gender" value="Male">Male
-                    <input type="radio" ng-model="custCtrl.customer.gender" name="gender" value="Female">Female
-                    <strong>{{ custCtrl.customer.gender }}</strong>
-                </td>
-            </tr>
-            <tr>
-                <td>Country</td>
-                <td>
-                    <select ng-model="custCtrl.customer.country">
-                        <option value="India">India</option>
-                        <option value="USA">USA</option>
-                        <option value="Australia">Australia</option>
-                    </select>
-                    {{ custCtrl.customer.country }}
-                </td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td><input type="email" ng-model="custCtrl.customer.email" /> {{ custCtrl.customer.email }} </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <input type="submit" value="Add Customer" />
-                </td>
-            </tr>
-        </table>
-
-        <table ng-show="custCtrl.customerList.length" class="row">
-            <thead>
+        <div>
+            <table class="form-horizontal">
                 <tr>
-                    <th>Name</th>
-                    <th>Date of Birth</th>
-                    <th>Gender</th>
-                    <th>Country</th>
-                    <th>Email</th>
+                    <td>First Name</td>
+                    <td><input type="text" ng-model="custCtrl.customer.firstName" required />{{ custCtrl.customer.firstName }}</td>
                 </tr>
-            </thead>
-            <tr ng-repeat="custItem in custCtrl.customerList" ng-class-even="rowEven">
-                <td>{{ custItem.firstName }} {{ custItem.lastName }}</td>
-                <td>{{ custItem.dateOfBirth | date:'dd/MMM/yyyy' }}</td>
-                <td>{{ custItem.gender }}</td>
-                <td>{{ custItem.country }}</td>
-                <td><a ng-href="mailto:{{ custItem.email }}">{{ custItem.email }}</a> </td>
-            </tr>
-        </table>
+                <tr>
+                    <td>Last Name</td>
+                    <td>
+                        <input type="text" ng-model="custCtrl.customer.lastName" required class="col-lg-10" />
+                        {{ custCtrl.customer.lastName}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth</td>
+                    <td>
+                        <input type="date" ng-model="custCtrl.customer.dateOfBirth" required></input>{{  custCtrl.customer.dateOfBirth | date:'dd/MMM/yyyy' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>
+                        <input type="radio" ng-model="custCtrl.customer.gender" name="gender" value="Male">Male
+                        <input type="radio" ng-model="custCtrl.customer.gender" name="gender" value="Female">Female
+                        <strong>{{ custCtrl.customer.gender }}</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td>
+                        <select ng-model="custCtrl.customer.country">
+                            <option value="India">India</option>
+                            <option value="USA">USA</option>
+                            <option value="Australia">Australia</option>
+                        </select>
+                        {{ custCtrl.customer.country }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" ng-model="custCtrl.customer.email" /> {{ custCtrl.customer.email }} </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="Add Customer" />
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <input type="search" ng-model="searchField"/>
+            <table ng-show="custCtrl.customerList.length" class="row">
+                <thead class="rowHeader">
+                    <tr>
+                        <th><a href="#" ng-click="sortField='firstName';reverse=!reverse">Name</a></th>
+                        <th><a href="#" ng-click="sortField='dateOfBirth';reverse=!reverse">Date of Birth</a></th>
+                        <th><a href="#" ng-click="sortField='gender';reverse=!reverse">Gender</a></th>
+                        <th><a href="#" ng-click="sortField='country';reverse=!reverse">Country</a></th>
+                        <th><a href="#" ng-click="sortField='email';reverse=!reverse">Email</a></th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="custItem in custCtrl.customerList | filter:searchField | orderBy:sortField:reverse" ng-class-even="'rowEven'">
+                    <td>{{ custItem.firstName }} {{ custItem.lastName }}</td>
+                    <td>{{ custItem.dateOfBirth | date:'dd/MMM/yyyy' }}</td>
+                    <td>{{ custItem.gender }}</td>
+                    <td>{{ custItem.country }}</td>
+                    <td><a ng-href="mailto:{{ custItem.email }}">{{ custItem.email }}</a></td>
+                </tr>
+            </table>
+        </div>
     </form>
 </body>
 </html>
