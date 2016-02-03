@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Orders</title>
+    <script src="../Scripts/angular.js"></script>
+    <script src="OrderModule.js"></script>
+</head>
+<body ng-app="ordModule" ng-controller="orderController as ordCtrl">
+    <input type="button" ng-click="ordCtrl.Orders" value="Orders"></input>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Required Date</th>
+                <th>Shipping Country</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="ord in ordCtrl.Orders()">
+            <td>{{ ord.id }}</td>
+            <td>{{ ord.name }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+</html>
