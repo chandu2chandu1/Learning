@@ -6,21 +6,25 @@
     <script src="OrderModule.js"></script>
 </head>
 <body ng-app="ordModule" ng-controller="orderController as ordCtrl">
-    <input type="button" ng-click="ordCtrl.Orders" value="Orders"></input>
-    <table>
+    <input type="text" placeholder="Search Order" ng-show="ordCtrl.orderList.length" ng-model="searchString" />
+    <input type="button" ng-click="ordCtrl.getOrders()" value="Get Orders">
+    <br/><br/>
+    <table border="1" style="border-style:inset" ng-show="ordCtrl.orderList.length">
         <thead>
             <tr>
                 <th>Order ID</th>
                 <th>Order Date</th>
                 <th>Required Date</th>
                 <th>Shipping Country</th>
+                <th>Bill To</th>
             </tr>
         </thead>
-        <tr ng-repeat="ord in ordCtrl.Orders()">
-            <td>{{ ord.id }}</td>
-            <td>{{ ord.name }}</td>
-            <td></td>
-            <td></td>
+        <tr ng-repeat="ord in ordCtrl.orderList | filter:searchString">
+            <td>{{ ord.OrderID }}</td>
+            <td>{{ ord.OrderDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ ord.RequiredDate | date:'dd/MM/yyyy' }}</td>
+            <td>{{ ord.ShipCountry }}</td>
+            <td>{{ ord.BillTo }}</td>
         </tr>
     </table>
 </body>
