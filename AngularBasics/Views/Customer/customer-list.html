@@ -1,0 +1,17 @@
+﻿<h4>Customer List</h4>
+<table border="1" style="border-style: inset; width: 50%;float:left;" ng-show="customerCtrl.list.length">
+    <thead>
+        <tr>
+            <th><a href="#" ng-click="sortString='OrderID'">Customer ID</a></th>
+            <th> Company Name</th>
+            <th> Contact Name</th>
+            <th> Contact Title</th>
+        </tr>
+    </thead>
+    <tr ng-repeat="custItem in customerCtrl.list">
+        <td><a ng-click="customerCtrl.getCustomer(custItem.CustomerID)" ng-href="#{{ custItem.CustomerID }}">{{ custItem.CustomerID }}</a> </td>
+        <td>{{ custItem.CompanyName }}</td>
+        <td>{{ custItem.ContactName }}</td>
+        <td>{{ custItem.ContactTitle }}</td>
+    </tr>
+</table>

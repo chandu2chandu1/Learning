@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Customer Information</title>
+    <script src="../Scripts/jquery-1.12.0.js"></script>
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Services/Customer.js"></script>
+    <script src="../Controller/CustomerController.js"></script>
+</head>
+<body ng-app="customerApp" ng-controller="customerController as customerCtrl" ng-init="customerCtrl.getCustomerList()">
+    <div>
+        <customer-list style="width:50%"></customer-list>
+        <customer-item style="width:50%;" ng-show="customerCtrl.selectedCustomer"></customer-item>
+    </div>
+</body>
+</html>
