@@ -6,26 +6,60 @@
     <script src="OrderModule.js"></script>
 </head>
 <body ng-app="ordModule" ng-controller="orderController as ordCtrl">
+    
+    <input type="button" ng-click="ordCtrl.getOrders()" value="Get Orders"> 
+    <input type="button" ng-click="ordCtrl.clearOrders()" value="Clear"> 
+    <img id="spinner" ng-src="../images/Fancy_pants.gif" alt="Loading.." ng-if="!ordCtrl.isLoaded">
+    <br /><br />  
     <input type="text" placeholder="Search Order" ng-show="ordCtrl.orderList.length" ng-model="searchString" />
-    <input type="button" ng-click="ordCtrl.getOrders()" value="Get Orders">
-    <br/><br/>
-    <table border="1" style="border-style:inset" ng-show="ordCtrl.orderList.length">
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Order Date</th>
-                <th>Required Date</th>
-                <th>Shipping Country</th>
-                <th>Bill To</th>
+    <br /> <br />   
+    <div>{{ sortString }}
+        <table border="1" style="border-style: inset; width: 50%;float:left;" ng-show="ordCtrl.orderList.length">
+            <thead>
+                <tr>
+                    <th><a href="#" ng-click="sortString='OrderID'">Order ID</a></th>
+                    <th> Order Date</th>
+                    <th> Required Date</th>
+                    <th> Shipping Country</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="ord in ordCtrl.orderList | filter:searchString | orderBy:OrderID:false">
+                <td><a ng-click="ordCtrl.getOrder(ord)" ng-href="#{{ ord.OrderID }}">{{ ord.OrderID }}</a> </td>
+                <td>{{ ord.OrderDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ ord.RequiredDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ ord.ShipCountry }}</td>
             </tr>
-        </thead>
-        <tr ng-repeat="ord in ordCtrl.orderList | filter:searchString">
-            <td>{{ ord.OrderID }}</td>
-            <td>{{ ord.OrderDate | date:'dd/MM/yyyy' }}</td>
-            <td>{{ ord.RequiredDate | date:'dd/MM/yyyy' }}</td>
-            <td>{{ ord.ShipCountry }}</td>
-            <td>{{ ord.BillTo }}</td>
-        </tr>
-    </table>
+        </table>
+
+        <table border="1" style="width:30%;margin-left:50px" ng-show="ordCtrl.currentOrder">
+            <thead>
+                <tr>
+                    <th width="50%">Key</th>
+                    <th width="50%">Value</th>
+                </tr>
+            </thead>
+            <tr>
+                <td><strong>Order ID</strong></td>
+                <td>{{ ordCtrl.currentOrder.OrderID }}</td>
+            </tr>
+            <tr>
+                <td><strong>Order Date</strong></td>
+                <td>{{ ordCtrl.currentOrder.OrderDate | date:'dd/MM/yyyy' }}</td>
+            </tr>
+            <tr>
+                <td><strong>Required Country</strong></td>
+                <td>{{ ordCtrl.currentOrder.RequiredDate | date:'dd/MM/yyyy' }}</td>
+            </tr>
+            <tr>
+                <td><strong>Customer ID</strong></td>
+                <td>{{ ordCtrl.currentOrder.CustomerID }}</td>
+            </tr>
+            <tr>
+                <td><strong>Shipping Address</strong></td>
+                <td>{{ ordCtrl.currentOrder.ShipAddress }}</td>
+            </tr>
+        </table>
+
+    </div>
 </body>
 </html>
